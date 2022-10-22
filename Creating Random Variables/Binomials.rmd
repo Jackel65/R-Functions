@@ -1,0 +1,93 @@
+
+Binomial_function is a function that takes in three parameter: n, the number of Bernoulli random variables, trials, the number of trails in each Bernoulli random 
+variable, and p, the common probability shared among the Bernoulli random variables. It uses a separate function that I have also created and defined locally, 
+Bernoulli, which takes in two variables: trials and p, defined the same as above. 
+
+```{r}
+
+# define the function
+Binomial_function <- function(n,trials,p){
+  
+  #First, we define the function Bernoulli
+
+  Bernoulli <- function(trials,p){
+    
+    #Create inputted "trials" number of uniform random variable observations 
+    #using runif()
+    
+    unif <- runif(trials, 0, 1)
+    
+    #set counter j and define as placeholder 0
+    j=0
+    
+    #loop through the created uniform observations and set to either 0 or 1
+    for (i in unif){
+      
+      j=j+1
+      
+      if (i<=p){
+      
+        unif[j] <- 1  
+      
+      }else{
+      
+        unif[j] <- 0
+        
+      }
+    
+    }
+    
+    #return the uniform data morphed into Bernoulli data
+    unif
+  
+    }
+  
+  #create counter i and set to placeholder value 0
+  i <- 0
+  
+  #create result vector and set to empty placeholder
+  result <-c()
+  
+  # loop through this code while the counter is less than inputted value n
+  while (i < n){
+    
+    #set x to "trials" amount of observations of a Bernoulli random variable
+    x<-Bernoulli(trials, p)
+    
+    #set counter z to placeholder 0
+    z <- 0
+    
+    #loop through Bernoulli observations in x
+    for (j in x){
+      
+      #check to see if trial was a success
+      if (j == 1){
+        
+        #if it was, success counter z increases by 1
+        z<-z+1
+        
+      }
+
+    }
+    
+    #after finding how many success in Bernoulli x, append counter to result
+    result <- append(result, z)
+    
+    #increase while loop counter by 1
+    i <- i+1
+  }
+  
+  #return binomial results 
+  result
+
+  
+}
+```
+
+Here we have a simple example of implementation
+
+```{r}
+
+Binomial_function(10,5,0.7)
+
+```
