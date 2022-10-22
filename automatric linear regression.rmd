@@ -1,0 +1,46 @@
+
+y_as_polynomial is a function that takes in a response vector y, a covariate vector x and a significance level alpha.
+
+The function models y as a polynomial function of x. 
+To find the degree of the polynomial, the function continues to add terms until the term with the highest order, z^(p+1) is no longer significant at user provided level 
+alpha. The function then returns the polynomial model with degree p.
+
+```{r}
+
+#defining the function, alpha = 5% is the placeholder
+y_as_polynomial <- function(y, x, alpha = 0.05){
+  
+  #fitting the first model to y ~ x 
+  model <- lm(y~x)
+  
+  #starting counter i at 1
+  i=1
+
+  #while loop to continuously fit models until significance level is below alpha
+  while ((summary(model)[["coefficients"]][(i+1),4] < alpha)){
+    
+    #increase counter every loop
+    i <- i+1  
+  
+    #update the equation and refit model to polynomial of degree i  
+    model <- lm(y~ poly(x, i, raw = TRUE))
+  }
+  
+  #return desired model of degree i-1
+  lm(y~ poly(x,(i-1), raw = TRUE))
+  
+  
+  
+}
+```
+
+Here we have a simple example of implementation taken from the assignment paper
+
+```{r}
+y <- c(6.08, 6.42, 6.13, 7.94, 4.72, 8.13, 6.31, 4.62, 9.40, 3.73, 7.94, 7.52)
+x <- c(3.77, 3.92, 3.79, 4.66, 3.18, 4.77, 3.87, 3.14, 6.24, 2.75, 4.66, 4.44)
+
+y_as_polynomial(y,x, alpha = 0.05)
+
+
+```
