@@ -1,0 +1,62 @@
+normal_from_uni is a function that implements takes in three parameters: n, the desired amount of samples from a normal random variable, mu, the mean of the normal
+random 
+variable, and sd, the standard deviation of the random variable. 
+
+The function checks to see if n is a non-negative integer and returns an error if it is not.
+
+The function returns a vector of n observations that come from a normal random variable with mean mu and standard deviation sd. 
+
+```{r}
+
+normal_from_uni<- function(n,mu,sd){
+  
+  
+if (n < 0 || n %% floor(n) != 0) {
+stop("n must be a non-nagative integer")
+}      
+  
+if ((n %% 2) == 0){
+  
+n_unifs <- runif(n,0,1)
+
+rs <- sqrt(-2*log(1- n_unifs[1:(n/2)])) 
+thetas <- 2*pi*n_unifs[(n/2+1):n]
+
+y1s <- rs * cos(thetas)
+y2s <- rs * sin(thetas)
+}else{
+n_unifs <- runif(n+1,0,1)
+
+rs <- sqrt(-2*log(1- n_unifs[1:((n+1)/2)])) 
+thetas <- 2*pi*n_unifs[((n+1)/2+1):(n+1)]
+
+y1s <- rs * cos(thetas)
+y2s <- rs[1:((n-1)/2)] * sin(thetas[1:((n-1)/2)])  
+  
+} 
+
+  
+ys <- c(y1s,y2s)
+
+mu + ys*sd
+
+}
+
+```
+
+
+Here, we verify that the function does generate samples from a normal(mu,sd^2) random variable by checking to see if the distribution lines up with the rnorm() 
+function which we know produces samples from a normal(mu,sd^2) random variables.
+
+```{r}
+
+c1 <- rgb(173,216,230,max = 255, alpha = 80, names = "lt.blue")
+c2 <- rgb(255,192,203, max = 255, alpha = 80, names = "lt.pink")
+
+
+plot(hist(normal_from_uni(1000000, 10, 5), col = c1))
+hist(rnorm(1000000,10,5), col = c2, add = TRUE)
+```
+
+Clearly, we can see that the function does generate a sample from the desired random variable. 
+
