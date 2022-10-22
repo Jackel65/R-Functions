@@ -1,0 +1,58 @@
+
+beta_from_uniform is a function that takes in three parameters: n, the desired size of samples taken from the beta random variable, a, the alpha shape parameter in the beta random variable, and b, the beta shape parameter in the beta random variable. 
+
+The function checks to see if the desired size n is a non-negative integer, and if the two shape parameters are < 0.
+
+The function returns to the user a vector of size n containing n samples from a beta random variable with shape parameters a and b.
+
+
+```{r}
+
+beta_from_uniform <- function(n,a,b){
+  
+if (n < 0 || n %% floor(n) != 0) {
+stop("n must be a non-negative integer")
+}  
+  
+  
+if (a < 0 || b < 0) {
+stop("the shape parameters must be > 0")
+}    
+  
+  
+x_list <- c()
+
+while (length(x_list) < n) {
+  
+v1 <- runif(1,0,1)^(1/a)
+v2 <- runif(1,0,1)^(1/b)
+w <- v1 + v2
+x <- v1/w
+
+if (w <= 1) {
+  
+  x_list <-append(x_list, x)
+  
+}
+
+}
+
+x_list
+
+}
+
+```
+
+
+
+Here, we verify that the function does generate samples from a beta random variable by checking to see if the distribution lines up with the rbeta() 
+function which we know produces samples from a beta random variable.
+
+```{r}
+
+plot(hist(beta_from_uniform(100000,0.5,0.4), col = c1))
+hist(rbeta(100000,0.5,0.4), col = c2, add = TRUE)
+
+```
+
+Clearly, we can see that the function does generate a sample from the desired random variable. 
