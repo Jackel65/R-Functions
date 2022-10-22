@@ -1,0 +1,66 @@
+
+geometric is a function that takes in three parameters: x, r, and the number of terms, n. The function returns the sum of the n terms of a geometric series 
+with parameters x and r
+
+```{r}
+
+#defining the function
+geometric <- function(x, r, n){
+  
+#define the final value, summation. Start with placeholders 0
+summation = 0
+
+#break out of the function if the number of terms is negative
+if (n <= 0){
+  
+  break
+}
+
+
+#check to see if the number of terms is finite
+if (is.finite(n)==TRUE){
+  
+ #if n is finite, check to see if r is 1  
+ if (r == 1) {
+   
+  #if r is 1, the summation is the product of n and x
+  summation = n*x
+  
+}else{
+  
+  #if r is not 1, the summation is equal to this equation
+  summation = x*(1-r**n)/(1-r)
+}
+  
+  
+#if the number of terms is infinite, perform this code  
+}else{
+  
+  #check to see if the absolute value of r is less than 1
+  if (abs(r)<1){
+    
+    #if it is, the summation is equal to this equation
+    summation = x/(1-r)
+    
+  #else, if absolute value of r is greater than or equal to 1, then the 
+  #summation is infinite
+  }else{
+    
+    summation = Inf
+  }
+  
+  
+} 
+  
+#return the final summation to the user
+summation  
+  
+}
+
+```
+
+Here we have a simple example of implementation
+
+```{r}
+geometric(x = 3, r =1 , n= 15)
+```
