@@ -1,0 +1,78 @@
+
+angle_and_lengths is a function that takes in two vectors of dimension d. It returns a character vector with three elements stating the input vectors' lengths 
+and the angle between them. 
+
+```{r}
+
+#defining the function 
+angle_and_lengths <- function(x = NULL, y = NULL){
+
+#check to see if the inputs are null. If they are, stop the function and return
+#the message
+if (is.null(x) || is.null(y)) {
+stop("Neither x nor y may be null")
+  
+#check to see if the inputs are different sizes. If they are, stop the function
+#and return the message
+}else if(length(x)!=length(y)){
+stop("x and y must be the same length")
+}else{
+
+  #define sum of squares x and y with placeholder 0
+  ssx <- 0
+  ssy <- 0 
+  
+  
+  #loop through input vector x and compute sum of squares
+  for (i in 1:length(x)){
+  
+    ssx <- ssx + x[i]**2
+  
+  }
+  #loop through input vector y and compute sum of squares
+  for (i in 1:length(y)){
+  
+    ssy <- ssy + y[i]**2
+  
+  }  
+    
+  
+  #compute length of inputs x and y by taking the square root of sum of squares
+  len_x <-sqrt(ssx)
+  
+  len_y <- sqrt(ssy)
+  
+  #define sum of x*y with placeholder 0
+  sxy <- 0
+
+  #loop through input vectors x and y and compute sum of their products
+  for (i in 1:length(x)){
+  
+    sxy <- sxy +x[i]*y[i]   
+
+  }
+
+  
+  #compute cos of the angle theta between x and y
+  cos_theta <-(sxy)/(len_x*len_y)
+  
+  
+  #arccos() the cos(theta) to get theta
+  angle = acos(cos_theta)
+  
+  #return to the user the angle and lengths computed 
+  c(sprintf("Angle between x and y = %s in radians",angle),
+    sprintf("Length of x = %s",len_x),sprintf("Length of y = %s",len_y)) 
+}  
+}
+
+```
+
+Here we have a simple example of implementation
+
+```{r}
+x <- c(5,19,2)
+y <- c(-8,-3,-10)
+
+angle_and_lengths(x,y)
+```
