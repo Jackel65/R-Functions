@@ -1,5 +1,9 @@
 
-geom_from_uni is a function that takes in two parameter: n, the desired size of the sample from a geometric random variable and p, the desired success probability. The function checks to see if n is a non-negative integer and p is in-between 0 and 1 and returns an error if either are not true. The function first creates n samples from a uniform random variable. Then, the function calculates the lambda value necessary to transform the uniforms into samples from an exponential random variable with the desired p. Then transforms the uniform random variable samples into exponential random variable samples, then finally takes that samples and rounds them down to the closest integer below their respective number. Finally, the output is these rounded down numbers, which we have proved come from a geometric random variable. 
+geom_from_uni is a function that takes in two parameter: n, the desired size of the sample from a geometric random variable and p, the desired success probability. 
+The function checks to see if n is a non-negative integer and p is in-between 0 and 1 and returns an error if either are not true. The function first creates n samples
+from a uniform random variable. Then, the function calculates the lambda value necessary to transform the uniforms into samples from an exponential random variable 
+with the desired p. Then transforms the uniform random variable samples into exponential random variable samples, then finally takes that samples and rounds them down 
+to the closest integer below their respective number. Finally, the output is these rounded down numbers, which we have proved come from a geometric random variable. 
 
 
 ```{r}
@@ -21,7 +25,8 @@ stop("p must be between 0 and 1")
 ```
 
 
-Here, we verify that the function does generate samples from a geometric random variable by checking to see if the distribution lines up with the rgeom() function which we know produces samples from a geometric random variables. 
+Here, we verify that the function does generate samples from a geometric random variable by checking to see if the distribution lines up with the rgeom() function 
+which we know produces samples from a geometric random variables. 
 
 
 ```{r}
