@@ -1,0 +1,125 @@
+
+Bisection_Method is a function that that takes in a function and a vector with two numeric elements. These elements will be the min and max of the interval. 
+The Bisection_Method function will return the point on the interval that makes the inputted function equal to 0 within an error of 1*10^(-6). 
+This function assumes that the inputted function only has a single root in the interval.
+
+```{r}
+
+#defining the function
+Bisection_Method <- function(func, interval){
+  
+  #setting the error to 1*10^(-6)
+  target_accuracy <- (1*10**(-6))
+  #getting the min and max of the interval
+  x1 <- interval[1]
+  x2 <- interval[2]
+   
+  #run this loop until we are within the desired error of the root.
+  while(abs(x1-x2)>target_accuracy){
+  
+    #set the mid point as x prime
+    x_prime <- (1/2)*(x1+x2)  
+    
+    #set the function at point x prime as f(x prime)
+    f_x_prime <- func(x_prime)
+
+    #check to see if the midpoint is the root, break if it is
+    if (f_x_prime == 0){
+      
+      break
+      
+    #check if the sign of f(x1) is the same as f(x prime)
+    }else if (sign(func(x1)) == sign(f_x_prime)){
+        
+        #if it is, move the max point x1 to the halfway point x prime
+        x1 <- x_prime
+        
+    #if the sign of f(x1) is NOT the same as f(x prime) and f(x prime) does 
+    #not equal 0, then move the min of the interval to x prime
+    }else{
+      
+        x2 <- x_prime
+      }
+  }
+  
+  #return the estimated point
+  (1/2)*(x1+x2)
+  
+}
+
+```
+
+Here we have a simple example of implementation taken from the assignment paper
+
+```{r}
+
+f <- function(x){
+  # The function for which we wish to find the root
+  cos(x)+exp(x)
+}
+
+Bisection_Method(f, c(-pi, pi))
+
+```
+Bisection_Method is a function that that takes in a function and a vector with two numeric elements.
+These elements will be the min and max of the interval. The Bisection_Method function will return the point on the interval that makes the inputted 
+function equal to 0 within an error of 1*10^(-6). This function assumes that the inputted function only has a single root in the interval.
+
+```{r}
+
+#defining the function
+Bisection_Method <- function(func, interval){
+  
+  #setting the error to 1*10^(-6)
+  target_accuracy <- (1*10**(-6))
+  #getting the min and max of the interval
+  x1 <- interval[1]
+  x2 <- interval[2]
+   
+  #run this loop until we are within the desired error of the root.
+  while(abs(x1-x2)>target_accuracy){
+  
+    #set the mid point as x prime
+    x_prime <- (1/2)*(x1+x2)  
+    
+    #set the function at point x prime as f(x prime)
+    f_x_prime <- func(x_prime)
+
+    #check to see if the midpoint is the root, break if it is
+    if (f_x_prime == 0){
+      
+      break
+      
+    #check if the sign of f(x1) is the same as f(x prime)
+    }else if (sign(func(x1)) == sign(f_x_prime)){
+        
+        #if it is, move the max point x1 to the halfway point x prime
+        x1 <- x_prime
+        
+    #if the sign of f(x1) is NOT the same as f(x prime) and f(x prime) does 
+    #not equal 0, then move the min of the interval to x prime
+    }else{
+      
+        x2 <- x_prime
+      }
+  }
+  
+  #return the estimated point
+  (1/2)*(x1+x2)
+  
+}
+
+```
+
+Here we have a simple example of implementation taken from the assignment paper
+
+```{r}
+
+f <- function(x){
+  # The function for which we wish to find the root
+  cos(x)+exp(x)
+}
+
+Bisection_Method(f, c(-pi, pi))
+
+```
