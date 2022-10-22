@@ -1,0 +1,47 @@
+
+NC_from_central_and_poisson is a function that takes in three parameters: lambda, where lambda is the non-centrality parameter of the desired non-central chi-squared random variable, k, where k is the degrees of freedom of the desired non-central chi-squared random variable, and n, where n is the desired sample size from the non-central chi-squared random variable.
+
+The function checks to see if n and k are positive integers and if lambda is non-negative. Returns an error if any are untrue.
+
+The function will output to the user a vector of n samples from a non-central chi-squared random variable with degrees of freedom k and non-centrality parameter lambda.
+ 
+```{r}
+
+NC_from_central_and_poisson <- function(lambda,k,n){
+  
+  
+if (n < 0 || k < 0) {
+stop("the sample size and degrees of freedom must be > 0")
+} 
+  
+if (k %% floor(k) != 0 || n %% floor(n) != 0) {
+stop("n and k must be integers")
+}    
+  
+if (lambda < 0) {
+stop("lambda must be >= 0")
+}    
+    
+z=rpois(n,lambda/2)
+rchisq(n,k+2*z)
+
+}
+
+```
+
+
+Here, we verify that the function does generate samples from a non-central Chi-Squared random variable by checking to see if the distribution lines up with the rchisq() function which we know produces samples from a non-central Chi-Squared random variable.
+
+```{r}
+
+c1 <- rgb(173,216,230,max = 255, alpha = 80, names = "lt.blue")
+c2 <- rgb(255,192,203, max = 255, alpha = 80, names = "lt.pink")
+
+
+plot(hist(NC_from_central_and_poisson(10,15,1000000), col = c1))
+hist(rchisq(1000000, 15, ncp = 10), col = c2, add = TRUE)
+
+```
+
+
+Clearly, we can see that the function does generate a sample from the desired random variable. 
